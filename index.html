@@ -19,25 +19,24 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        html { scroll-behavior: smooth; } /* Yumuşak kaydırma */
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Poppins', sans-serif;
             line-height: 1.6;
             color: var(--text-dark);
             background-color: #FFFFFF;
-            padding-top: 110px; /* Header yüksekliği kadar boşluk */
+            padding-top: 100px; /* Header için boşluk */
         }
 
-        /* --- 2. GELİŞMİŞ HEADER (MOBİL & MASAÜSTÜ) --- */
+        /* --- 2. GELİŞMİŞ HEADER (FLEXBOX YAPISI) --- */
         header {
             background: var(--header-bg);
             position: fixed;
             top: 0; left: 0; right: 0;
             z-index: 9999;
             box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-            padding-top: 10px;
+            padding: 10px 0;
         }
 
         .header-container {
@@ -45,293 +44,189 @@
             margin: 0 auto;
             padding: 0 15px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding-bottom: 10px;
+            justify-content: space-between;
+            flex-wrap: wrap; /* Mobilde alt satıra geçmesi için */
         }
 
-        /* Logo Tasarımı */
+        /* Logo */
         .logo {
+            display: flex; align-items: center; text-decoration: none;
+            color: white; font-weight: 700; font-size: 1.1em;
+            flex-shrink: 0; /* Küçülmesin */
+        }
+        .logo img {
+            height: 50px; width: 50px;
+            border-radius: 50%; border: 2px solid white; background: white;
+            object-fit: cover; margin-right: 10px;
+        }
+
+        /* WhatsApp Butonu */
+        .header-btn {
+            background: var(--whatsapp-green); color: white;
+            padding: 8px 16px; border-radius: 20px;
+            text-decoration: none; font-size: 0.9em; font-weight: 600;
+            display: flex; align-items: center; gap: 6px;
+            flex-shrink: 0;
+        }
+
+        /* MENÜ (NAVİGASYON) */
+        .main-menu {
             display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: white;
-            font-weight: 700;
-            font-size: 1.1em;
+            gap: 5px;
+            /* Mobilde varsayılan ayarlar (Alt satır, kaydırmalı) */
+            order: 3; /* Mobilde en alta at */
+            width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding-top: 10px;
+            -webkit-overflow-scrolling: touch;
         }
         
-        .logo img {
-            height: 50px;
-            width: 50px;
-            border-radius: 50%;
-            border: 2px solid white;
-            background: white;
-            object-fit: cover;
-            margin-right: 10px;
-        }
+        /* Scroll bar gizleme */
+        .main-menu::-webkit-scrollbar { display: none; }
 
-        /* Header WhatsApp Butonu */
-        .header-btn {
-            background: var(--whatsapp-green);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-size: 0.9em;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: transform 0.2s;
-        }
-        .header-btn:active { transform: scale(0.95); }
-
-        /* Kaydırılabilir Alt Menü (Mobil İçin Kritik) */
-        .mobile-menu {
-            background: rgba(0,0,0,0.2);
-            white-space: nowrap;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            padding: 10px 15px;
-            display: flex;
-            gap: 15px;
-        }
-        /* Scroll çubuğunu gizle */
-        .mobile-menu::-webkit-scrollbar { display: none; }
-
-        .mobile-menu a {
+        .main-menu a {
             color: rgba(255,255,255,0.9);
             text-decoration: none;
             font-size: 0.95em;
             font-weight: 500;
-            padding: 5px 12px;
-            border-radius: 15px;
+            padding: 6px 15px;
+            border-radius: 20px;
             background: rgba(255,255,255,0.1);
+            transition: all 0.3s;
         }
-        .mobile-menu a.active, .mobile-menu a:hover {
+        .main-menu a:hover {
             background: var(--secondary-color);
             color: var(--text-dark);
         }
 
-        /* --- 3. HERO ALANI (ANA GÖRSEL) --- */
+        /* --- 3. HERO --- */
         .hero {
             background: linear-gradient(rgba(0, 77, 64, 0.85), rgba(0, 100, 0, 0.75)), url('img/image_4.png');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            text-align: center;
+            background-size: cover; background-position: center;
+            color: white; text-align: center;
             padding: 80px 20px;
             border-bottom: 5px solid var(--secondary-color);
-            margin-top: -5px; /* Boşluk kalmasın */
+            margin-top: -5px;
         }
-
-        .hero h1 {
-            font-size: 2.5em;
-            line-height: 1.2;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-        }
-
-        .hero p {
-            font-size: 1.1em;
-            max-width: 700px;
-            margin: 0 auto 30px auto;
-            opacity: 0.95;
-        }
-
+        .hero h1 { font-size: 2.5em; line-height: 1.2; margin-bottom: 15px; }
+        .hero p { font-size: 1.1em; max-width: 700px; margin: 0 auto 30px auto; }
+        
         .cta-btn {
-            background: var(--secondary-color);
-            color: var(--text-dark);
-            padding: 15px 35px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 5px 15px rgba(218, 165, 32, 0.4);
+            background: var(--secondary-color); color: var(--text-dark);
+            padding: 15px 35px; border-radius: 50px; text-decoration: none;
+            font-weight: 700; display: inline-flex; align-items: center; gap: 10px;
             transition: transform 0.3s;
         }
         .cta-btn:hover { transform: translateY(-3px); }
 
-        /* --- 4. HİZMETLER --- */
+        /* --- 4. HİZMETLER & GALERİ --- */
         section { padding: 60px 15px; }
         .bg-light { background: var(--bg-light); }
-        
         .container { max-width: 1200px; margin: 0 auto; }
-        
         .section-header { text-align: center; margin-bottom: 40px; }
         .section-header h2 { color: var(--primary-color); font-size: 2em; margin-bottom: 10px; }
-        .section-header p { color: #666; }
-
+        
         .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;
         }
-
         .service-card {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-            text-align: center;
+            background: white; border-radius: 15px; padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05); text-align: center;
             border-bottom: 4px solid var(--primary-color);
-            transition: transform 0.3s;
         }
-        .service-card:hover { transform: translateY(-5px); }
-
         .service-icon {
-            width: 70px; height: 70px;
-            background: var(--bg-light);
-            color: var(--secondary-color);
-            border-radius: 50%;
+            width: 70px; height: 70px; background: var(--bg-light);
+            color: var(--secondary-color); border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-size: 1.8em;
-            margin: 0 auto 20px auto;
+            font-size: 1.8em; margin: 0 auto 20px auto;
         }
-
         .service-card img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-top: 20px;
+            width: 100%; height: 180px; object-fit: cover;
+            border-radius: 10px; margin-top: 20px;
         }
 
-        /* --- 5. GALERİ (Responsive Grid) --- */
         .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr); /* Telefondan 2 sütun */
-            gap: 15px;
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;
         }
         .gallery-item img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            width: 100%; height: 200px; object-fit: cover;
+            border-radius: 12px; transition: transform 0.3s;
         }
         .gallery-item img:hover { transform: scale(1.02); }
 
-        /* --- 6. DETAYLAR & ÖZELLİKLER --- */
+        /* --- 5. ÖZELLİKLER --- */
         .feature-block {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-            margin-bottom: 60px;
+            display: flex; align-items: center; gap: 40px; margin-bottom: 60px;
         }
-        
         .feature-block.reverse { flex-direction: row-reverse; }
-
         .feature-content { flex: 1; }
         .feature-content h3 { font-size: 1.8em; color: var(--primary-color); margin-bottom: 15px; }
-        
         .feature-list { list-style: none; }
-        .feature-list li {
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            font-size: 1.1em;
-        }
-        .feature-list i {
-            color: var(--secondary-color);
-            margin-right: 12px;
-            font-size: 1.3em;
-        }
-
+        .feature-list li { margin-bottom: 12px; display: flex; align-items: center; font-size: 1.1em; }
+        .feature-list i { color: var(--secondary-color); margin-right: 12px; font-size: 1.3em; }
         .feature-img {
-            flex: 1;
-            height: 350px;
-            background-size: cover;
-            background-position: center;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            border: 5px solid white;
+            flex: 1; height: 350px; background-size: cover; background-position: center;
+            border-radius: 20px; border: 5px solid white; box-shadow: 0 10px 30px rgba(0,0,0,0.15);
         }
 
-        /* --- 7. İLETİŞİM & HARİTA --- */
-        .contact-section {
-            background: var(--header-bg);
-            color: white;
-            text-align: center;
-        }
-        
+        /* --- 6. İLETİŞİM --- */
+        .contact-section { background: var(--header-bg); color: white; text-align: center; }
         .contact-info-box {
-            background: rgba(255,255,255,0.1);
-            padding: 30px;
-            border-radius: 20px;
-            margin-bottom: 30px;
-            backdrop-filter: blur(5px);
+            background: rgba(255,255,255,0.1); padding: 30px;
+            border-radius: 20px; margin-bottom: 30px;
         }
-        
-        .contact-item {
-            margin-bottom: 15px;
-            font-size: 1.1em;
-        }
-        .contact-item i { color: var(--secondary-color); margin-right: 10px; }
-
         .map-frame {
-            width: 100%;
-            height: 400px;
-            border: 0;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            width: 100%; height: 400px; border: 0; border-radius: 20px;
         }
+        footer { background: #00332a; color: #aaa; text-align: center; padding: 20px; }
 
-        footer {
-            background: #00332a;
-            color: #aaa;
-            text-align: center;
-            padding: 20px;
-            font-size: 0.9em;
-        }
+        /* =========================================
+           BİLGİSAYAR / TABLET AYARLARI (RESPONSIVE)
+           ========================================= */
+        @media (min-width: 900px) {
+            body { padding-top: 90px; }
 
-        /* --- 8. MEDYA SORGULARI (RESPONSIVE AYARLAR) --- */
-        
-        /* Tablet ve Masaüstü İçin İyileştirmeler */
-        @media (min-width: 768px) {
-            body { padding-top: 90px; } /* Masaüstünde header daha ince olabilir */
-            
-            .header-container { padding-bottom: 0; }
-            .mobile-menu { 
-                background: transparent; 
-                margin-left: auto; /* Sağa yasla */
-                overflow: visible;
+            .header-container {
+                flex-wrap: nowrap; /* Tek satır olsun */
+                padding-bottom: 0;
             }
-            .mobile-menu a { background: transparent; padding: 0 15px; font-size: 1em; }
-            .mobile-menu a:hover { background: transparent; color: var(--secondary-color); }
-            
+
+            /* Menüyü Ortala */
+            .main-menu {
+                order: 0; /* Sırasını düzelt */
+                width: auto;
+                padding-top: 0;
+                background: transparent;
+                justify-content: center; /* ORTALA */
+                overflow: visible;
+                flex: 1; /* Boş alanı kapla ki ortalansın */
+            }
+
+            .main-menu a {
+                background: transparent;
+                padding: 0 20px;
+                font-size: 1em;
+            }
+            .main-menu a:hover {
+                background: transparent;
+                color: var(--secondary-color);
+            }
+
             .hero h1 { font-size: 3.5em; }
-            
             .gallery-grid { grid-template-columns: repeat(4, 1fr); }
             .gallery-item img { height: 280px; }
         }
 
-        /* Mobil Telefonlar İçin Kritik Ayarlar */
-        @media (max-width: 767px) {
-            /* Özellikler kısmını mobilde alt alta yap */
+        @media (max-width: 899px) {
+            /* Mobil düzenlemeler */
             .feature-block, .feature-block.reverse {
-                flex-direction: column;
-                text-align: center;
-                gap: 20px;
+                flex-direction: column; text-align: center; gap: 20px;
             }
-            
-            .feature-list li {
-                justify-content: center; /* Listeyi ortala */
-                text-align: left;
-            }
-            
-            .feature-img {
-                width: 100%;
-                height: 250px; /* Mobilde resim yüksekliğini azalt */
-            }
-            
-            .hero { padding: 60px 20px; }
-            .hero h1 { font-size: 2em; }
-            
-            .services-grid { grid-template-columns: 1fr; } /* Kartlar tam ekran */
+            .feature-list li { justify-content: center; text-align: left; }
+            .feature-img { width: 100%; height: 250px; }
+            .services-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -343,16 +238,18 @@
                 <img src="img/logo.png" alt="Logo">
                 <span>ASLAN ADAK</span>
             </a>
+
+            <nav class="main-menu">
+                <a href="#hizmetler">Hizmetler</a>
+                <a href="#galeri">Galeri</a>
+                <a href="#ozellikler">Seçenekler</a>
+                <a href="#iletisim">İletişim</a>
+            </nav>
+
             <a href="https://wa.me/905539601773" class="header-btn">
                 <i class="fab fa-whatsapp"></i> WhatsApp
             </a>
         </div>
-        <nav class="mobile-menu">
-            <a href="#hizmetler">Hizmetler</a>
-            <a href="#galeri">Galeri</a>
-            <a href="#ozellikler">Seçenekler</a>
-            <a href="#iletisim">İletişim</a>
-        </nav>
     </header>
 
     <section class="hero">
@@ -399,7 +296,6 @@
         <div class="container">
             <div class="section-header">
                 <h2>Tesisimizden Kareler</h2>
-                <p>Sağlıklı ve bakımlı kurbanlıklarımız.</p>
             </div>
             <div class="gallery-grid">
                 <div class="gallery-item"><img src="img/koyun1.jpg" alt="Görsel 1"></div>
@@ -412,7 +308,6 @@
 
     <section id="ozellikler" class="bg-light">
         <div class="container">
-            
             <div class="feature-block">
                 <div class="feature-img" style="background-image: url('img/koyun2.jpg');"></div>
                 <div class="feature-content">
@@ -438,34 +333,24 @@
                     </ul>
                 </div>
             </div>
-
         </div>
     </section>
 
     <section id="iletisim" class="contact-section">
         <div class="container">
             <h2 style="margin-bottom:30px; color:var(--secondary-color);">Bize Ulaşın</h2>
-            
             <div class="contact-info-box">
-                <div class="contact-item">
-                    <i class="fas fa-map-marker-alt"></i> 
+                <p style="font-size:1.2em; margin-bottom:15px;">
+                    <i class="fas fa-map-marker-alt" style="color:var(--secondary-color)"></i> 
                     49 Şehitler Cami Sk. Acıbadem Kız Yurdu Karşısı, Ataşehir / İSTANBUL
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-phone-alt"></i> 
-                    0553 960 17 73
-                </div>
-                <div class="contact-item">
-                    <a href="https://wa.me/905539601773" style="color:white; text-decoration:none; background:var(--whatsapp-green); padding:5px 15px; border-radius:15px; font-size:0.9em;">
-                        <i class="fab fa-whatsapp"></i> WhatsApp'tan Konum İste
-                    </a>
-                </div>
+                </p>
+                <a href="https://wa.me/905539601773" style="color:white; text-decoration:none; background:var(--whatsapp-green); padding:10px 25px; border-radius:25px; font-weight:600;">
+                    <i class="fab fa-whatsapp"></i> 0553 960 17 73
+                </a>
             </div>
-
-            <div style="padding: 10px; background: white; border-radius: 20px;">
+            <div style="padding:10px; background:white; border-radius:20px;">
                 <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!4v1764188604976!6m8!1m7!1sPw5uFdb4PuSo2BUGsqt-4Q!2m2!1d40.97817078766199!2d29.11268154404514!3f2.9385145385668814!4f-17.75690352917222!5f0.7820865974627469" allowfullscreen="" loading="lazy"></iframe>
             </div>
-            
         </div>
     </section>
 
