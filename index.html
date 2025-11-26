@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aslan Adak & Kurban Satış Yeri</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- 1. TEMEL AYARLAR & RENKLER --- */
+        :root {
+            --primary-color: #006400; /* Koyu Yeşil */
+            --secondary-color: #DAA520; /* Altın Sarısı */
+            --bg-light: #F8F9FA;
+            --text-dark: #2D3436;
+            --header-bg: #004D40;
+            --whatsapp-green: #25D366;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        html { scroll-behavior: smooth; } /* Yumuşak kaydırma */
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: #FFFFFF;
+            padding-top: 110px; /* Header yüksekliği kadar boşluk */
+        }
+
+        /* --- 2. GELİŞMİŞ HEADER (MOBİL & MASAÜSTÜ) --- */
+        header {
+            background: var(--header-bg);
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 9999;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            padding-top: 10px;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+        }
+
+        /* Logo Tasarımı */
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+        
+        .logo img {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            border: 2px solid white;
+            background: white;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        /* Header WhatsApp Butonu */
+        .header-btn {
+            background: var(--whatsapp-green);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: transform 0.2s;
+        }
+        .header-btn:active { transform: scale(0.95); }
+
+        /* Kaydırılabilir Alt Menü (Mobil İçin Kritik) */
+        .mobile-menu {
+            background: rgba(0,0,0,0.2);
+            white-space: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 10px 15px;
+            display: flex;
+            gap: 15px;
+        }
+        /* Scroll çubuğunu gizle */
+        .mobile-menu::-webkit-scrollbar { display: none; }
+
+        .mobile-menu a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-size: 0.95em;
+            font-weight: 500;
+            padding: 5px 12px;
+            border-radius: 15px;
+            background: rgba(255,255,255,0.1);
+        }
+        .mobile-menu a.active, .mobile-menu a:hover {
+            background: var(--secondary-color);
+            color: var(--text-dark);
+        }
+
+        /* --- 3. HERO ALANI (ANA GÖRSEL) --- */
+        .hero {
+            background: linear-gradient(rgba(0, 77, 64, 0.85), rgba(0, 100, 0, 0.75)), url('img/image_4.png');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+            border-bottom: 5px solid var(--secondary-color);
+            margin-top: -5px; /* Boşluk kalmasın */
+        }
+
+        .hero h1 {
+            font-size: 2.5em;
+            line-height: 1.2;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.1em;
+            max-width: 700px;
+            margin: 0 auto 30px auto;
+            opacity: 0.95;
+        }
+
+        .cta-btn {
+            background: var(--secondary-color);
+            color: var(--text-dark);
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(218, 165, 32, 0.4);
+            transition: transform 0.3s;
+        }
+        .cta-btn:hover { transform: translateY(-3px); }
+
+        /* --- 4. HİZMETLER --- */
+        section { padding: 60px 15px; }
+        .bg-light { background: var(--bg-light); }
+        
+        .container { max-width: 1200px; margin: 0 auto; }
+        
+        .section-header { text-align: center; margin-bottom: 40px; }
+        .section-header h2 { color: var(--primary-color); font-size: 2em; margin-bottom: 10px; }
+        .section-header p { color: #666; }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            text-align: center;
+            border-bottom: 4px solid var(--primary-color);
+            transition: transform 0.3s;
+        }
+        .service-card:hover { transform: translateY(-5px); }
+
+        .service-icon {
+            width: 70px; height: 70px;
+            background: var(--bg-light);
+            color: var(--secondary-color);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8em;
+            margin: 0 auto 20px auto;
+        }
+
+        .service-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        /* --- 5. GALERİ (Responsive Grid) --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Telefondan 2 sütun */
+            gap: 15px;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .gallery-item img:hover { transform: scale(1.02); }
+
+        /* --- 6. DETAYLAR & ÖZELLİKLER --- */
+        .feature-block {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .feature-block.reverse { flex-direction: row-reverse; }
+
+        .feature-content { flex: 1; }
+        .feature-content h3 { font-size: 1.8em; color: var(--primary-color); margin-bottom: 15px; }
+        
+        .feature-list { list-style: none; }
+        .feature-list li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            font-size: 1.1em;
+        }
+        .feature-list i {
+            color: var(--secondary-color);
+            margin-right: 12px;
+            font-size: 1.3em;
+        }
+
+        .feature-img {
+            flex: 1;
+            height: 350px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border: 5px solid white;
+        }
+
+        /* --- 7. İLETİŞİM & HARİTA --- */
+        .contact-section {
+            background: var(--header-bg);
+            color: white;
+            text-align: center;
+        }
+        
+        .contact-info-box {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .contact-item {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        .contact-item i { color: var(--secondary-color); margin-right: 10px; }
+
+        .map-frame {
+            width: 100%;
+            height: 400px;
+            border: 0;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        footer {
+            background: #00332a;
+            color: #aaa;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+        }
+
+        /* --- 8. MEDYA SORGULARI (RESPONSIVE AYARLAR) --- */
+        
+        /* Tablet ve Masaüstü İçin İyileştirmeler */
+        @media (min-width: 768px) {
+            body { padding-top: 90px; } /* Masaüstünde header daha ince olabilir */
+            
+            .header-container { padding-bottom: 0; }
+            .mobile-menu { 
+                background: transparent; 
+                margin-left: auto; /* Sağa yasla */
+                overflow: visible;
+            }
+            .mobile-menu a { background: transparent; padding: 0 15px; font-size: 1em; }
+            .mobile-menu a:hover { background: transparent; color: var(--secondary-color); }
+            
+            .hero h1 { font-size: 3.5em; }
+            
+            .gallery-grid { grid-template-columns: repeat(4, 1fr); }
+            .gallery-item img { height: 280px; }
+        }
+
+        /* Mobil Telefonlar İçin Kritik Ayarlar */
+        @media (max-width: 767px) {
+            /* Özellikler kısmını mobilde alt alta yap */
+            .feature-block, .feature-block.reverse {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            .feature-list li {
+                justify-content: center; /* Listeyi ortala */
+                text-align: left;
+            }
+            
+            .feature-img {
+                width: 100%;
+                height: 250px; /* Mobilde resim yüksekliğini azalt */
+            }
+            
+            .hero { padding: 60px 20px; }
+            .hero h1 { font-size: 2em; }
+            
+            .services-grid { grid-template-columns: 1fr; } /* Kartlar tam ekran */
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <img src="img/logo.png" alt="Logo">
+                <span>ASLAN ADAK</span>
+            </a>
+            <a href="https://wa.me/905539601773" class="header-btn">
+                <i class="fab fa-whatsapp"></i> WhatsApp
+            </a>
+        </div>
+        <nav class="mobile-menu">
+            <a href="#hizmetler">Hizmetler</a>
+            <a href="#galeri">Galeri</a>
+            <a href="#ozellikler">Seçenekler</a>
+            <a href="#iletisim">İletişim</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Kurban İbadetiniz<br>Güvenilir Ellerde</h1>
+            <p>Hijyenik tesisimizde ister kendiniz seçin, ister vekalet verin. Kesim, parçalama ve paketleme bizden.</p>
+            <a href="https://wa.me/905539601773" class="cta-btn">
+                <i class="fas fa-phone-alt"></i> Canlı Fiyat Alın
+            </a>
+        </div>
+    </section>
+
+    <section id="hizmetler" class="bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2>Hizmetlerimiz</h2>
+                <p>İslami usullere %100 uygun profesyonel hizmet.</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-hand-pointer"></i></div>
+                    <h3>Yerinde Seçim</h3>
+                    <p>Tesisimize misafir olun, kurbanlığınızı görerek, dokunarak kendiniz seçin.</p>
+                    <img src="img/koyun1.jpg" alt="Seçim">
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-cut"></i></div>
+                    <h3>Ücretsiz Kesim</h3>
+                    <p>Usta kasaplarımız tarafından hijyenik ortamda kesim ve yüzme işlemi yapılır.</p>
+                    <img src="img/koyun3.jpg" alt="Kesim">
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-shopping-bag"></i></div>
+                    <h3>Paket Teslim</h3>
+                    <p>Etleriniz pay edilir, temiz poşetlere konulur ve size hazır teslim edilir.</p>
+                    <img src="img/koyun4.jpg" alt="Paket">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="galeri">
+        <div class="container">
+            <div class="section-header">
+                <h2>Tesisimizden Kareler</h2>
+                <p>Sağlıklı ve bakımlı kurbanlıklarımız.</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="img/koyun1.jpg" alt="Görsel 1"></div>
+                <div class="gallery-item"><img src="img/koyun2.jpg" alt="Görsel 2"></div>
+                <div class="gallery-item"><img src="img/koyun3.jpg" alt="Görsel 3"></div>
+                <div class="gallery-item"><img src="img/koyun4.jpg" alt="Görsel 4"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ozellikler" class="bg-light">
+        <div class="container">
+            
+            <div class="feature-block">
+                <div class="feature-img" style="background-image: url('img/koyun2.jpg');"></div>
+                <div class="feature-content">
+                    <h3>Gelin, Çayımızı İçin</h3>
+                    <p>Adak ve kurban güven işidir. Tesisimiz her zaman ziyarete açıktır.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> Geniş ve ferah bekleme alanı</li>
+                        <li><i class="fas fa-check-circle"></i> Kesimi canlı izleme imkanı</li>
+                        <li><i class="fas fa-mug-hot"></i> Çay ve kahve ikramımızdır</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="feature-block reverse">
+                <div class="feature-img" style="background-image: url('img/koyun4.jpg');"></div>
+                <div class="feature-content">
+                    <h3>Nasıl İsterseniz Öyle</h3>
+                    <p>Kurbanınızı sadece kesip bırakmıyoruz, mutfağınıza girmeye hazır hale getiriyoruz.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-utensils"></i> Kemikli veya kemiksiz ayrım</li>
+                        <li><i class="fas fa-users"></i> Dilediğiniz sayıda eşit hisse</li>
+                        <li><i class="fas fa-box-open"></i> Temiz ve hijyenik poşetleme</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="iletisim" class="contact-section">
+        <div class="container">
+            <h2 style="margin-bottom:30px; color:var(--secondary-color);">Bize Ulaşın</h2>
+            
+            <div class="contact-info-box">
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i> 
+                    49 Şehitler Cami Sk. Acıbadem Kız Yurdu Karşısı, Ataşehir / İSTANBUL
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone-alt"></i> 
+                    0553 960 17 73
+                </div>
+                <div class="contact-item">
+                    <a href="https://wa.me/905539601773" style="color:white; text-decoration:none; background:var(--whatsapp-green); padding:5px 15px; border-radius:15px; font-size:0.9em;">
+                        <i class="fab fa-whatsapp"></i> WhatsApp'tan Konum İste
+                    </a>
+                </div>
+            </div>
+
+            <div style="padding: 10px; background: white; border-radius: 20px;">
+                <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!4v1764188604976!6m8!1m7!1sPw5uFdb4PuSo2BUGsqt-4Q!2m2!1d40.97817078766199!2d29.11268154404514!3f2.9385145385668814!4f-17.75690352917222!5f0.7820865974627469" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 Aslan Adak & Kurban Hizmetleri. Tüm Hakları Saklıdır.</p>
+    </footer>
+
+</body>
+</html>
